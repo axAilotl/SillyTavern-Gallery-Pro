@@ -79,6 +79,12 @@ The source code is in the `src/` directory:
 - `src/Gallery.jsx` - Gallery lightbox component
 - `src/Gallery.css` - Styles for the gallery
 
+<img width="488" height="384" alt="image" src="https://github.com/user-attachments/assets/853e1a24-5738-45a1-a240-7e2613800b4c" />
+<img width="1635" height="1867" alt="image" src="https://github.com/user-attachments/assets/700348a4-b03d-41d0-a10a-c092f7d08ea8" />
+<img width="1428" height="1855" alt="image" src="https://github.com/user-attachments/assets/5acf6239-9449-4576-b894-5f9e19d1affd" />
+
+
+
 ## Requirements
 
 - SillyTavern

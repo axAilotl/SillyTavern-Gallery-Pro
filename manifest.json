@@ -1,12 +1,11 @@
 {
-    "display_name": "Template Extension",
+    "display_name": "SillyTavern Gallery Pro",
     "loading_order": 1,
     "requires": [],
-    "optional": [],
+    "optional": ["gallery"],
     "js": "dist/index.js",
-    "css": "",
-    "author": "Cohee1207",
+    "css": "dist/Gallery.css",
+    "author": "Vega",
     "version": "1.0.0",
-    "homePage": "https://github.com/Cohee1207/Extension-ReactTemplate",
-    "auto_update": true
+    "auto_update": false
 }

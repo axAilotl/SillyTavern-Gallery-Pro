@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
-// Choose the root container for the extension's main UI
-const rootContainer = document.getElementById('extensions_settings');
+// Create a root container for the gallery modal (mounts to body)
 const rootElement = document.createElement('div');
-rootContainer.appendChild(rootElement);
+rootElement.id = 'sillytavern-gallery-pro-root';
+document.body.appendChild(rootElement);
 
 const root = ReactDOM.createRoot(rootElement);
 root.render(

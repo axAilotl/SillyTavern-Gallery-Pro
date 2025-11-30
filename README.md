@@ -1,64 +1,80 @@
 # SillyTavern Gallery Pro
 
-An enhanced gallery component for SillyTavern with a modern lightbox interface, slideshow functionality, and filename display.
+A React-based gallery extension for SillyTavern with grid view, lightbox, sorting, and upload support.
+
+## Screenshots
+
+<img width="488" alt="Grid View" src="https://github.com/user-attachments/assets/853e1a24-5738-45a1-a240-7e2613800b4c" />
+<img width="1635" alt="Lightbox View" src="https://github.com/user-attachments/assets/700348a4-b03d-41d0-a10a-c092f7d08ea8" />
+<img width="1428" alt="Gallery Interface" src="https://github.com/user-attachments/assets/5acf6239-9449-4576-b894-5f9e19d1affd" />
 
 ## Features
 
-- **Large Modal View**: Full-screen lightbox with 95% viewport dimensions
-- **Slideshow Navigation**: Navigate through images with arrow buttons, keyboard (←/→), or dot indicators
-- **Filename Display**: Shows the full filename in the header (useful for future macro support)
-- **Video Support**: Displays both images and videos
-- **Keyboard Controls**: 
-  - Arrow Left/Right: Navigate images
-  - Escape: Close gallery
-- **Delete Support**: Optional delete button when callback is provided
-- **Responsive Design**: Works on desktop and mobile devices
+- **Grid View**: Responsive thumbnail mosaic with filenames
+- **Lightbox View**: Full-screen viewer with navigation controls
+- **Video Support**: MP4, WebM, OGG, MOV, AVI, MKV playback
+- **Sorting**: By name (A-Z, Z-A) or date (newest, oldest)
+- **Upload**: Add images/videos directly from the gallery
+- **Delete**: Remove files with confirmation
+- **Keyboard Navigation**: Arrow keys + Escape
+- **Lazy Loading**: Thumbnails load on demand
 
 ## Installation
 
-1. Clone or copy this extension to `/public/scripts/extensions/third-party/SillyTavern-Gallery-Pro/`
-2. Run `npm install` to install dependencies
-3. Run `npm run build` to build the extension
-4. The extension will be automatically loaded by SillyTavern
+1. Clone into `SillyTavern/public/scripts/extensions/third-party/`
+2. Run:
+   ```bash
+   npm install
+   npm run build
+   ```
+3. Restart SillyTavern
 
-## Usage
-
-The extension exposes a global API `window.SillyTavernGalleryPro` that can be used by other extensions:
+## API
 
 ```javascript
-// Open the gallery with items
-window.SillyTavernGalleryPro.open(items, initialIndex, onDelete);
+// Open gallery
+window.SillyTavernGalleryPro.open(
+    items,           // [{src: 'url'}]
+    initialIndex,    // Starting index (default: 0)
+    onDelete,        // Async delete callback (optional)
+    onRefresh,       // Async refresh callback (optional)
+    galleryFolder    // Upload folder name (optional)
+);
 
-// Close the gallery
+// Close gallery
 window.SillyTavernGalleryPro.close();
 
-// Check if gallery is open
+// Check if open
 window.SillyTavernGalleryPro.isOpen();
 ```
 
-### Parameters
-
-- `items`: Array of objects with `src` property (e.g., `[{src: 'user/images/folder/image.jpg'}]`)
-- `initialIndex`: Index of the item to show initially (default: 0)
-- `onDelete`: Optional callback function that receives the URL when delete is clicked
-
-### Example Integration
+### Example
 
 ```javascript
-// In your extension code
-const items = [
-    { src: 'user/images/char1/image1.jpg' },
-    { src: 'user/images/char1/image2.jpg' },
-    { src: 'user/images/char1/video1.mp4' },
+const images = [
+    { src: '/user/images/char1/image1.png' },
+    { src: '/user/images/char1/image2.jpg' },
 ];
 
-// Open gallery at first image
-window.SillyTavernGalleryPro.open(items, 0, async (url) => {
-    // Handle delete
-    await deleteImage(url);
-    // Optionally refresh and reopen
-});
+// Basic
+window.SillyTavernGalleryPro.open(images);
+
+// With callbacks
+window.SillyTavernGalleryPro.open(
+    images,
+    0,
+    async (url) => { /* delete handler */ },
+    async (sortOrder) => { /* refresh handler */ },
+    'character_name'
+);
 ```
+
+## Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| `←` / `→` | Navigate |
+| `Escape` | Close lightbox / gallery |
 
 ## Building
 
@@ -67,26 +83,6 @@ npm install
 npm run build
 ```
 
-The built files will be in the `dist/` directory:
-- `dist/index.js` - Main JavaScript bundle
-- `dist/Gallery.css` - Extracted CSS styles
+## License
 
-## Development
-
-The source code is in the `src/` directory:
-- `src/index.js` - Entry point
-- `src/App.js` - Main app component that exposes the global API
-- `src/Gallery.jsx` - Gallery lightbox component
-- `src/Gallery.css` - Styles for the gallery
-
-<img width="488" height="384" alt="image" src="https://github.com/user-attachments/assets/853e1a24-5738-45a1-a240-7e2613800b4c" />
-<img width="1635" height="1867" alt="image" src="https://github.com/user-attachments/assets/700348a4-b03d-41d0-a10a-c092f7d08ea8" />
-<img width="1428" height="1855" alt="image" src="https://github.com/user-attachments/assets/5acf6239-9449-4576-b894-5f9e19d1affd" />
-
-
-
-## Requirements
-
-- SillyTavern
-- React 18.2.0+
-- Font Awesome icons (already included in SillyTavern)
+AGPL-3.0

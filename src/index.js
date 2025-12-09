@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import './integration';
 
 // Create a root container for the gallery modal (mounts to body)
 const rootElement = document.createElement('div');

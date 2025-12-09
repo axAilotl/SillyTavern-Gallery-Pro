@@ -206,6 +206,15 @@ function Gallery({ items = [], initialIndex = 0, onClose, onDelete, onRefresh, g
         setViewMode('lightbox');
     };
 
+    // Helper to copy text to clipboard
+    const handleCopy = (text) => {
+        navigator.clipboard.writeText(text).then(() => {
+            if (window.toastr) window.toastr.success('Copied to clipboard');
+        }).catch(() => {
+            if (window.toastr) window.toastr.error('Failed to copy');
+        });
+    };
+
     if (galleryItems.length === 0) {
         return null;
     }
@@ -285,6 +294,28 @@ function Gallery({ items = [], initialIndex = 0, onClose, onDelete, onRefresh, g
                                         )}
                                     </div>
                                     <div className="gallery-grid-filename-label">{filenameNoExt}</div>
+                                    <div className="gallery-grid-copy-actions">
+                                        <button 
+                                            className="gallery-grid-copy-btn"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleCopy(`![${filenameNoExt}](${item.src})`);
+                                            }}
+                                            title="Copy as Markdown"
+                                        >
+                                            <i className="fa-solid fa-file-invoice"></i> MD
+                                        </button>
+                                        <button 
+                                            className="gallery-grid-copy-btn"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleCopy(`<img src="${item.src}">`);
+                                            }}
+                                            title="Copy as HTML"
+                                        >
+                                            <i className="fa-solid fa-code"></i> HTML
+                                        </button>
+                                    </div>
                                     {onDelete && (
                                         <button
                                             className="gallery-grid-delete"
